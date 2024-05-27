@@ -23,6 +23,9 @@ If you're using a Linux distribution like Ubuntu, it's recommended to set up a v
 - The entire authentication system has been implemented.
 - Users are able to create, update, and delete their own posts.
 - Users can view posts created by other users, as well as their own.
+- When a user creates an account, they now have access to their profile information, where they can update their data.
+- Users can now comment on all posts and can also update and delete their own comments.
+- Pagination has been added to reduce potential issues with large amounts of data when rendering posts.
 
 ### Usage:
 
