@@ -3,14 +3,12 @@
 {% load crispy_forms_tags static %} 
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-
 <div class="wrapper">
   <div class="box">
     <form method="post">
       <h2 class="header">Update a Post</h2>
       {% csrf_token %}{{form|crispy}}
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="btn btn-success">Update</button>
     </form>
   </div>
 </div>

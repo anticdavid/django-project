@@ -3,8 +3,6 @@
 {% block title %}View a Post{% endblock %} 
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-
 <div class="card mt-3">
   <div class="card-header">
     <strong>
@@ -20,7 +18,47 @@
 
   <div class="card-footer d-flex justify-content-between">
     <a href="/home" class="btn blog-view-button">Back</a>
-    <button class="btn blog-view-button">Comment</button>
+    <a href="{% url 'add_comment' post.pk%}" class="btn blog-view-button"
+      >Comment</a
+    >
+  </div>
+
+  <div class="comment-section">
+    {% if not post.comments.all %}
+    <h3>There is no comments...</h3>
+    {% else %}
+    <h1>Comments...</h1>
+    {% for comment in post.comments.all%}
+    <div class="comment-details">
+      <p><strong>Title:</strong> {{comment.name}}</p>
+      <p><strong>Message:</strong> {{comment.body}}</p>
+      <p>
+        <strong>Created at:</strong> {{comment.date_added}} by
+        <strong>{{comment.user}}</strong>
+      </p>
+    </div>
+    {% if user == comment.user%}
+    <form method="POST" action="{% url 'view_post' post.id%}">
+      {% csrf_token %}
+      <div class="comment-delete">
+        <button
+          type="submit"
+          class="btn blog-view-button"
+          name="comment-id"
+          value="{{comment.id}}"
+        >
+          Delete
+        </button>
+        <a
+          href="{% url 'update_comment' pk=post.pk comment_id=comment.id %}"
+          class="btn blog-view-button"
+          >Update</a
+        >
+      </div>
+    </form>
+    {% endif %}
+    <br />
+    {% endfor %} {% endif %}
   </div>
   {% endblock%}
 </div>

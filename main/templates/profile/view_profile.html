@@ -1,0 +1,44 @@
+{% extends "main/base.html" %} 
+{% block title %}Profile{% endblock %} 
+{% load crispy_forms_tags static %} 
+{% block content %}
+
+<div class="wrapper">
+  <div class="profile-container">
+    <div class="profile-header">
+      <h1>Profile</h1>
+    </div>
+
+    <div class="profile-body">
+      <img
+        class="profile-picture"
+        src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+        alt="Profile Picture"
+      />
+      <h3>{{user.first_name}} {{user.last_name}}</h3>
+      <p>{{user.carrer}}</p>
+    </div>
+
+    <div class="profile-info">
+      <div class="info-section">
+        <p><strong>Location:</strong> Serbia</p>
+        <hr />
+        <p><strong>Email:</strong> {{ user.email }}</p>
+      </div>
+      <div class="info-section">
+        <p><strong>Joined at:</strong> {{ user_profile.date_joined }}</p>
+        <hr />
+        <p><strong>Username:</strong> {{user.username}}</p>
+      </div>
+    </div>
+
+    <div class="profile-buttons">
+      <a href="/home" class="btn btn-danger">Back</a>
+      <a href="{% url 'update_user' pk=user.pk %}" class="btn btn-success"
+        >Update</a
+      >
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,14 +1,14 @@
 {% extends "main/base.html" %} 
-{% block title %}Create a Post{% endblock %} 
+{% block title %}Update a Comment{% endblock %} 
 {% load crispy_forms_tags static %} 
 {% block content %}
 
 <div class="wrapper">
   <div class="box">
     <form method="post">
-      <h2 class="header">Create a Post</h2>
+      <h2 class="header">Update a Comment</h2>
       {% csrf_token %}{{form|crispy}}
-      <button type="submit" class="btn btn-success">Post</button>
+      <button type="submit" class="btn btn-success">Update</button>
     </form>
   </div>
 </div>

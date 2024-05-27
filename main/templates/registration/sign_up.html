@@ -3,10 +3,8 @@
 {% load crispy_forms_tags static %} 
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/signup_form.css' %}"/>
-
 <div class="wrapper">
-  <div class="box">
+  <div class="box box-signup">
     <form method="post">
       <h2>Sign up</h2>
       {% csrf_token %}{{form|crispy}}
