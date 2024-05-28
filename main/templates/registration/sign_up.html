@@ -4,8 +4,8 @@
 {% block content %}
 
 <div class="wrapper">
-  <div class="box box-signup">
-    <form method="post">
+  <div class="box">
+    <form method="post" class="signup-form">
       <h2>Sign up</h2>
       {% csrf_token %}{{form|crispy}}
       <p class="signup-message">Have an account? Login <a class="signupa" href="/login">here</a></p>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterForm, PostForm, UpdateForm, UpdateUserForm, CommentForm
+from .forms import RegisterForm, PostForm, UpdateForm, UpdateUserForm, CommentForm, ProfilePictureForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout,authenticate
 from .models import Post, Profile, Comment
@@ -74,10 +74,13 @@ def view_post(request, pk):
 def sign_up(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        
         if form.is_valid():
             user = form.save()
 
-            profile = Profile.objects.create(user=user)
+            profession  = form.cleaned_data['profession']
+
+            profile = Profile.objects.create(user=user,profession=profession)
             profile.bio = user.username
             profile.save()
 
@@ -99,14 +102,17 @@ def view_profile(request):
 
 @login_required(login_url='/login')
 def update_user(request, pk):
-    user = User.objects.get(id=pk)
-    form  = UpdateUserForm(instance=user)
+    user = User.objects.get(pk=pk)
+    profile = Profile.objects.get(user=user)
+    form = UpdateUserForm(request.POST or None, instance=user, initial={"profession": profile.profession})
 
     if request.method == 'POST':
-        form = UpdateUserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            return redirect("/home")
+            profile.profession = form.cleaned_data['profession']
+            profile.save()
+            return redirect("/view_profile")
+
     return render(request, 'profile/update_profile_form.html', {"form": form})
 
 # Add a Comment
@@ -114,6 +120,7 @@ def update_user(request, pk):
 @login_required(login_url='/login')
 def add_comment(request, pk):
     post = get_object_or_404(Post, id=pk)
+    
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -142,3 +149,16 @@ def update_comment(request, pk, comment_id):
         form = CommentForm(instance=comment)
 
     return render (request, 'post/update_comment.html', {'form':form, 'comment':comment})
+
+# Upload a Profile photo
+
+@login_required
+def upload_profile_pic(request):
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('view_profile')  
+    else:
+        form = ProfilePictureForm(instance=request.user.profile)
+    return render(request, 'profile/upload_profile_pic.html', {'form': form})

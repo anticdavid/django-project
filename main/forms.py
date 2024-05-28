@@ -1,13 +1,15 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import User
-from .models import Post, Comment
+from .models import Post, Comment, Profile
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    profession = forms.CharField(required=True)
+   
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email","username", "password1", "password2"]
+        fields = ["username","email","profession", "password1", "password2"]
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -20,11 +22,18 @@ class UpdateForm(forms.ModelForm):
         fields = ["title", "description"]
 
 class UpdateUserForm(forms.ModelForm):
+    profession = forms.CharField(required=True)
+
     class Meta:
         model = User
-        fields = ["first_name", "last_name","email","username"]
+        fields = ["email","username","profession"]
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ("name", "body")
+
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_pic']
