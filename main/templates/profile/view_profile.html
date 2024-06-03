@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+{% block title %}Profile{% endblock %}
+{% load crispy_forms_tags static %}
+{% block content %}
+  <h2 class="text-center mt-2 blog-header">Profile</h2>
+  <hr />
+  <div class="wrapper">
+    <div class="profile">
+      <div class="profile-body">
+        <h3>{{ user.username }}</h3>
+        {% if user.profile.profile_pic %}
+          <img class="profile-picture" src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" />
+        {% else %}
+          <img class="profile-picture" src="{% static 'images/default_profile.jpg' %}" alt="Default Profile Picture" />
+        {% endif %}
+        <p class="profession-info">{{ user.profile.profession }}</p>
+      </div>
+      <div class="profile-buttons">
+        <a href="{% url 'update_user' pk=user.pk %}" class="btn btn-profile">Edit</a>
+        <button type="button" class="btn btn-profile" data-toggle="modal" data-target="#userInfoModal">Info</button>
+        <a href="{% url 'upload_profile_pic' %}" class="btn btn-profile">Photo</a>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-custom-position">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userInfoModalLabel">User Information</h5>
+          <button class="btn-close bg-white" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Username:</strong> {{ user.username }}
+          </p>
+          <p>
+            <strong>Email:</strong> {{ user.email }}
+          </p>
+          <p>
+            <strong>Profession:</strong> {{ user.profile.profession }}
+          </p>
+          <hr />
+          <p>
+            <strong>Joined at:</strong> {{ user.profile.date_joined }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
