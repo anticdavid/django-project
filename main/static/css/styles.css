@@ -173,6 +173,15 @@ input[type="password"] {
   color: #fff;
 }
 
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #334257;
+  margin-top: 10px;
+}
+
 .picture {
   width: 50px;
   height: 50px;
@@ -189,15 +198,6 @@ input[type="password"] {
 .profile-header {
   text-align: center;
   margin-bottom: 20px;
-}
-
-.profile-picture {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #334257;
-  margin-top: 10px;
 }
 
 .profile-body {
@@ -226,16 +226,6 @@ input[type="password"] {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-}
-
-.btn-profile {
-  background-color: #fff;
-  border: none;
-  width: 100px;
-}
-
-.btn-profile:hover {
-  background-color: #ffffffb0;
 }
 
 .btn-close {
@@ -286,17 +276,16 @@ input[type="password"] {
   margin-top: 6.5%;
 }
 
-.profile-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 .btn-profile {
   background-color: #6887b3;
   color: #fff;
   width: 100px;
+  border: none;
+  width: 100px;
+}
+
+.btn-profile:hover {
+  background-color: #ffffffb0;
 }
 
 .comment-section {
@@ -322,4 +311,81 @@ input[type="password"] {
 
 .paginator-control a:hover {
   color: #3f3f3f;
+}
+
+.logo {
+  margin-right: 20px;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #334257;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding:10px;
+}
+
+.footer-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 5rem;
+  
+}
+.footer-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+}
+
+.footer-info a{
+  color:#b6b6b6;
+  transition:0.5s;
+  cursor:pointer;
+}
+
+.footer-info a:hover{
+  color:#fff;
+}
+
+.footer-info p {
+  margin: 0;
+}
+
+.footer-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 5rem;
+}
+
+.footer-info input {
+  height: 30px;
+}
+
+.email-sender-button{
+  background-color: #a10b0bd0;
+  color: #ffff;
+  margin-left: 0.5rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding:5px;
+}
+
+.email-sender-button{
+  background-color: #992c2c;
 }

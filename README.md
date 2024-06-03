@@ -26,10 +26,10 @@ If you're using a Linux distribution like Ubuntu, it's recommended to set up a v
 - When a user creates an account, they now have access to their profile information, where they can update their data.
 - Users can now comment on all posts and can also update and delete their own comments.
 - Pagination has been added to reduce potential issues with large amounts of data when rendering posts.
+- Users can now upload their profile picture to personalize their profiles.
+- Included a footer section in the application layout.
+- Footer now contains a input where short feedback can be provided. (In Progress)
 
 ### Usage:
 
-To test the application, you can use the following credentials:
-
-- **Username:** Admin
-- **Password:** Password123+
+To test the application, you need to sign up.

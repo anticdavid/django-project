@@ -11,7 +11,6 @@ from django.core.paginator import Paginator
 @login_required(login_url='/login')
 def home(request):
     posts_list = Post.objects.all()
-
     p = Paginator(Post.objects.all(), 4)
     page = request.GET.get('page')
     posts = p.get_page(page)
@@ -74,16 +73,14 @@ def view_post(request, pk):
 def sign_up(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        
         if form.is_valid():
             user = form.save()
-
             profession  = form.cleaned_data['profession']
-
+          
             profile = Profile.objects.create(user=user,profession=profession)
             profile.bio = user.username
             profile.save()
-
+           
             login(request,user)
             
             return redirect('/home')
@@ -96,6 +93,7 @@ def sign_up(request):
 
 def view_profile(request):
     user_profile = request.user.profile
+   
     return render(request, 'profile/view_profile.html', {'user_profile': user_profile})
 
 # Update a User
@@ -161,4 +159,5 @@ def upload_profile_pic(request):
             return redirect('view_profile')  
     else:
         form = ProfilePictureForm(instance=request.user.profile)
+   
     return render(request, 'profile/upload_profile_pic.html', {'form': form})

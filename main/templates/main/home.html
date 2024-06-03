@@ -1,48 +1,47 @@
-{% extends "main/base.html" %} 
-{% load static %} 
+{% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Blog Page{% endblock %}
 {% block content %}
-
-<div class="container">
-  <h2 class="text-center mt-2 blog-header">Blog posts</h2>
-  <hr />
-  <div class="row mt-5">
-    {% for post in posts %}
-      <div class="col-md-6 my-3">
-        <div class="card blog-card">
-          <div class="card-header">
-            <strong>Post uploaded by: @{{ post.author.username }}</strong>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.description }}</p>
-          </div>
-          <div class="card-footer d-flex justify-content-between">
-            <p class="creation-date">{{ post.created_at }}</p>
-            <form method="POST">
-              {% csrf_token %}
-              <a href="{% url 'view_post' post.pk %}" class="btn blog-action-button">Find more</a>
-              {% if user == post.author %}
-                <a href="{% url 'update_post' post.pk %}" class="btn blog-action-button">Edit</a>
-                <button type="submit" class="btn blog-action-button" name="post-id" value="{{ post.id }}">Delete</button>
-              {% endif %}
-            </form>
+  <div class="container">
+    <h2 class="text-center mt-2 blog-header">Blog posts</h2>
+    <hr />
+    <div class="row mt-5">
+      {% for post in posts %}
+        <div class="col-md-6 my-3">
+          <div class="card blog-card">
+            <div class="card-header">
+              <strong>Post uploaded by: @{{ post.author.username }}</strong>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.description }}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <p class="creation-date">{{ post.created_at }}</p>
+              <form method="POST">
+                {% csrf_token %}
+                <a href="{% url 'view_post' post.pk %}" class="btn blog-action-button">Find more</a>
+                {% if user == post.author %}
+                  <a href="{% url 'update_post' post.pk %}" class="btn blog-action-button">Edit</a>
+                  <button type="submit" class="btn blog-action-button" name="post-id" value="{{ post.id }}">Delete</button>
+                {% endif %}
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    {% empty %}
-      <p class="col">There are no posts.</p>
-    {% endfor %}
+      {% empty %}
+        <p class="col">There are no posts.</p>
+      {% endfor %}
+    </div>
+    <div class="paginator-control">
+      {% if posts.has_previous %}
+        <a href="?page=1">&laquo First |</a>
+        <a href="?page={{ posts.previous_page_number }}">Previous</a>
+      {% endif %}Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+      {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">Next</a>
+        <a href="?page={{ posts.paginator.num_pages }}">| Last &raquo</a>
+      {% endif %}
+    </div>
   </div>
-  <div class="paginator-control">
-    {% if posts.has_previous %}
-      <a class="neradi" href="?page=1">&laquo First |</a>
-      <a href="?page={{ posts.previous_page_number }}">Previous</a>
-    {% endif %}Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-    {% if posts.has_next %}
-      <a href="?page={{ posts.next_page_number }}">Next</a>
-      <a href="?page={{ posts.paginator.num_pages }}">| Last &raquo</a>
-    {% endif %}
-  </div>
-</div>
 {% endblock %}
